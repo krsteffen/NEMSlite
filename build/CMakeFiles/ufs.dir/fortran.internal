@@ -1,0 +1,11 @@
+# The fortran modules provided by this target.
+provides
+ module_earth_grid_comp.mod
+ module_earth_internal_state.mod
+ module_mediator.mod
+ module_mediator_methods.mod
+ module_medspaceweather.mod
+ module_nems_grid_comp.mod
+ module_nems_internal_state.mod
+ module_nems_rusage.mod
+ module_nems_utils.mod

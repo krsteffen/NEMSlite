@@ -31,19 +31,22 @@ set(REPRO           OFF CACHE BOOL "Enable REPRO mode")
 set(JEDI_DRIVER     OFF CACHE BOOL "Enable JEDI as top level driver")
 
 # Component Options
-#set(FMS             OFF CACHE BOOL "Enable FMS")
-#set(FV3             OFF CACHE BOOL "Enable FV3")
-#set(MOM6            OFF CACHE BOOL "Enable MOM6")
-#set(CICE6           OFF CACHE BOOL "Enable CICE6")
-set(WW3             OFF CACHE BOOL "Enable WW3")
-#set(STOCH_PHYS      OFF CACHE BOOL "Enable Stochastic Physics")
-#set(NEMSdatm        OFF CACHE BOOL "Enable NEMSdatm")
-#set(CMEPS           OFF CACHE BOOL "Enable CMEPS")
-#set(CDEPS           OFF CACHE BOOL "Enable CDEPS")
+set(FMS             OFF CACHE BOOL "Enable FMS")
+set(FV3             OFF CACHE BOOL "Enable FV3")
+set(MOM6            OFF CACHE BOOL "Enable MOM6")
+set(CICE6           OFF CACHE BOOL "Enable CICE6")
+#Mark set to ON
+set(WW3 ON CACHE BOOL "Enable WW3")
+set(STOCH_PHYS      OFF CACHE BOOL "Enable Stochastic Physics")
+set(NEMSdatm        OFF CACHE BOOL "Enable NEMSdatm")
+set(CMEPS           OFF CACHE BOOL "Enable CMEPS")
+set(CDEPS           OFF CACHE BOOL "Enable CDEPS")
 
 # Valid applications and choices
-list(APPEND VALID_APPS ATM ATMW S2S S2SW DATM DATM_NEMS)
-set(APP NONE CACHE BOOL "Application Name")
+#Mark made additions by adding WW3
+list(APPEND VALID_APPS JUSTWW3 ATM ATMW S2S S2SW DATM DATM_NEMS)
+#set(APP NONE CACHE BOOL "Application Name")
+set(APP JUSTWW3)
 if(NOT (APP IN_LIST VALID_APPS))
   message(FATAL_ERROR "${APP} is not a valid application.\nValid Applications are: ${VALID_APPS}")
 endif()
@@ -136,7 +139,7 @@ find_package(ESMF MODULE REQUIRED)
 if(CMEPS)
   find_package(PIO REQUIRED COMPONENTS C Fortran STATIC)
 endif()
-
+#mark comment, this isn't finding the config file
 find_package(bacio REQUIRED)
 find_package(nemsio REQUIRED)
 find_package(sp REQUIRED)
