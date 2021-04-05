@@ -31,15 +31,15 @@ set(REPRO           OFF CACHE BOOL "Enable REPRO mode")
 set(JEDI_DRIVER     OFF CACHE BOOL "Enable JEDI as top level driver")
 
 # Component Options
-set(FMS             OFF CACHE BOOL "Enable FMS")
-set(FV3             OFF CACHE BOOL "Enable FV3")
-set(MOM6            OFF CACHE BOOL "Enable MOM6")
-set(CICE6           OFF CACHE BOOL "Enable CICE6")
+#set(FMS             OFF CACHE BOOL "Enable FMS")
+#set(FV3             OFF CACHE BOOL "Enable FV3")
+#set(MOM6            OFF CACHE BOOL "Enable MOM6")
+#set(CICE6           OFF CACHE BOOL "Enable CICE6")
 set(WW3             OFF CACHE BOOL "Enable WW3")
-set(STOCH_PHYS      OFF CACHE BOOL "Enable Stochastic Physics")
-set(NEMSdatm        OFF CACHE BOOL "Enable NEMSdatm")
-set(CMEPS           OFF CACHE BOOL "Enable CMEPS")
-set(CDEPS           OFF CACHE BOOL "Enable CDEPS")
+#set(STOCH_PHYS      OFF CACHE BOOL "Enable Stochastic Physics")
+#set(NEMSdatm        OFF CACHE BOOL "Enable NEMSdatm")
+#set(CMEPS           OFF CACHE BOOL "Enable CMEPS")
+#set(CDEPS           OFF CACHE BOOL "Enable CDEPS")
 
 # Valid applications and choices
 list(APPEND VALID_APPS ATM ATMW S2S S2SW DATM DATM_NEMS)
@@ -95,15 +95,15 @@ include(cmake/configure_apps.cmake)
 
 # Components
 message("")
-message("FMS .............. ${FMS}")
-message("FV3 .............. ${FV3}")
-message("MOM6 ............. ${MOM6}")
-message("CICE6 ............ ${CICE6}")
+#message("FMS .............. ${FMS}")
+#message("FV3 .............. ${FV3}")
+#message("MOM6 ............. ${MOM6}")
+#message("CICE6 ............ ${CICE6}")
 message("WW3 .............. ${WW3}")
-message("STOCH_PHYS ....... ${STOCH_PHYS}")
-message("NEMSdatm ......... ${NEMSdatm}")
-message("CDEPS ............ ${CDEPS}")
-message("CMEPS ............ ${CMEPS}")
+#message("STOCH_PHYS ....... ${STOCH_PHYS}")
+#message("NEMSdatm ......... ${NEMSdatm}")
+#message("CDEPS ............ ${CDEPS}")
+#message("CMEPS ............ ${CMEPS}")
 
 # Options that applications reset
 message("32BIT ............ ${32BIT}")
@@ -156,34 +156,34 @@ message("Found Python: ${Python_EXECUTABLE}")
 ###############################################################################
 ### FMS
 ###############################################################################
-if(FMS)
-  set(GFS_PHYS ON CACHE BOOL "Enable GFS Physics")
-  if(NOT 32BIT)
-    set(64BIT ON CACHE BOOL "Enable 64-bit")
-  endif()
+#if(FMS)
+#  set(GFS_PHYS ON CACHE BOOL "Enable GFS Physics")
+#  if(NOT 32BIT)
+#    set(64BIT ON CACHE BOOL "Enable 64-bit")
+#  endif()
 
-  add_subdirectory(FMS)
+#  add_subdirectory(FMS)
 
-  if(32BIT)
-    add_library(fms ALIAS fms_r4)
-  else()
-    add_library(fms ALIAS fms_r8)
-  endif()
-endif(FMS)
+#  if(32BIT)
+#    add_library(fms ALIAS fms_r4)
+#  else()
+#    add_library(fms ALIAS fms_r8)
+#  endif()
+#endif(FMS)
 
 ###############################################################################
 ### stochastic_physics
 ###############################################################################
-if(STOCH_PHYS)
-  add_subdirectory(stochastic_physics)
-endif()
+#if(STOCH_PHYS)
+#  add_subdirectory(stochastic_physics)
+#endif()
 
 ###############################################################################
 ### Atmosphere Components [FV3, MPAS?]
 ###############################################################################
-if(FV3)
-  add_subdirectory(FV3)
-endif()
+#if(FV3)
+#  add_subdirectory(FV3)
+#endif()
 
 ###############################################################################
 ### Wave components [WW3]
@@ -217,32 +217,32 @@ endif()
 ###############################################################################
 ### Marine Components [MOM6, CICE6]
 ###############################################################################
-if(MOM6)
-  add_subdirectory(MOM6-interface)
-endif()
+#if(MOM6)
+#  add_subdirectory(MOM6-interface)
+#endif()
 
-if(CICE6)
-  add_subdirectory(CICE-interface)
-endif()
+#if(CICE6)
+#  add_subdirectory(CICE-interface)
+#endif()
 
 ###############################################################################
 ### Mediator Components [CMEPS]
 ###############################################################################
-if(CMEPS)
-  add_subdirectory(CMEPS-interface)
-endif()
+#if(CMEPS)
+#  add_subdirectory(CMEPS-interface)
+#endif()
 
 ###############################################################################
 ### Data Components [NEMSdatm, CDEPS]
 ###############################################################################
-if(NEMSdatm)
-  add_subdirectory(DATM)
-endif()
+#if(NEMSdatm)
+#  add_subdirectory(DATM)
+#endif()
 
-if(CDEPS)
-  message("ADD CDEPS-interface directory")
+#if(CDEPS)
+#  message("ADD CDEPS-interface directory")
 #  add_subdirectory(CDEPS-interface)
-endif()
+#endif()
 
 ###############################################################################
 ### UFS Library [NEMS]
@@ -291,48 +291,48 @@ endif()
 
 list(APPEND _ufs_libs_public esmf)
 
-if(STOCH_PHYS)
-  list(APPEND _ufs_libs_public stochastic_physics)
-endif()
+#if(STOCH_PHYS)
+#  list(APPEND _ufs_libs_public stochastic_physics)
+#endif()
 
-if(FMS)
-  add_dependencies(ufs fms)
-  list(APPEND _ufs_defs_private FRONT_FMS)
-endif()
+#if(FMS)
+#  add_dependencies(ufs fms)
+#  list(APPEND _ufs_defs_private FRONT_FMS)
+#endif()
 
-if(NEMSdatm)
-  add_dependencies(ufs datatm)
-  list(APPEND _ufs_defs_private FRONT_DATM=datm)
-  list(APPEND _ufs_libs_public datatm)
-endif()
+#if(NEMSdatm)
+#  add_dependencies(ufs datatm)
+#  list(APPEND _ufs_defs_private FRONT_DATM=datm)
+#  list(APPEND _ufs_libs_public datatm)
+#endif()
 
-if(FV3)
-  add_dependencies(ufs fv3atm)
-  list(APPEND _ufs_defs_private FRONT_FV3=fv3gfs_cap_mod)
-  list(APPEND _ufs_libs_public fv3atm)
-endif()
+#if(FV3)
+#  add_dependencies(ufs fv3atm)
+#  list(APPEND _ufs_defs_private FRONT_FV3=fv3gfs_cap_mod)
+#  list(APPEND _ufs_libs_public fv3atm)
+#endif()
 
-if(MOM6)
-  add_dependencies(ufs mom6)
-  list(APPEND _ufs_defs_private FRONT_MOM6=mom_cap_mod)
-  list(APPEND _ufs_libs_public mom6)
-endif()
+#if(MOM6)
+#  add_dependencies(ufs mom6)
+#  list(APPEND _ufs_defs_private FRONT_MOM6=mom_cap_mod)
+#  list(APPEND _ufs_libs_public mom6)
+#endif()
 
-if(CICE6)
-  add_dependencies(ufs cice)
-  list(APPEND _ufs_defs_private FRONT_CICE6=ice_comp_nuopc)
-  list(APPEND _ufs_libs_public cice)
-endif()
+#if(CICE6)
+#  add_dependencies(ufs cice)
+#  list(APPEND _ufs_defs_private FRONT_CICE6=ice_comp_nuopc)
+#  list(APPEND _ufs_libs_public cice)
+#endif()
 
-if(CMEPS)
-  add_dependencies(ufs cmeps)
-  list(APPEND _ufs_defs_private CMEPS FRONT_CMEPS=MED)
-  list(APPEND _ufs_libs_public cmeps)
-endif()
+#if(CMEPS)
+#  add_dependencies(ufs cmeps)
+#  list(APPEND _ufs_defs_private CMEPS FRONT_CMEPS=MED)
+#  list(APPEND _ufs_libs_public cmeps)
+#endif()
 
-if(CDEPS)
-  message("Do CDEPS things here")
-endif()
+#if(CDEPS)
+#  message("Do CDEPS things here")
+#endif()
 
 target_compile_definitions(ufs PRIVATE "${_ufs_defs_private}")
 target_link_libraries(ufs PUBLIC "${_ufs_libs_public}")
